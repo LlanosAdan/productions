@@ -50,6 +50,51 @@ st.write(
 st.write(peliculas)
 
 
+agrupar_clasificacion_tipo = peliculas.groupby(['type', 'clasificacion']).size().reset_index(name='count')
 
+fig = px.bar(
+    agrupar_clasificacion_tipo,
+    x='count',
+    y='clasificacion',
+    color='type',
+    barmode='group',
+    orientation='h',
+    title='Cantidad de películas y series por clasificación'
+)
+
+st.plotly_chart(fig)
+
+clasificacion = {
+    "rating": {
+        "TV-MA": "Adultos",
+        "TV-14": "14+",
+        "TV-Y7": "7+",
+        "PG-13": "13+",
+        "R": "17+",
+        "G": "Todos",
+        "TV-Y": "Peques",
+        "PG": "Guía padres",
+        "TV-PG": "Guía padres",
+        "TV-G": "Todos",
+        "NR": "Sin clasificar",
+        "TV-Y7-FV": "7+ Violencia",
+        "NC-17": "Solo adultos",
+        "UR": "Sin clasificar"
+    }
+}
+peliculas.replace(clasificacion, inplace=True)
+
+conteo_cruzado = peliculas.groupby(['fecha_estreno', 'type']).size().reset_index(name='count')
+
+fig = px.line(
+    conteo_cruzado,
+    x='fecha_estreno',
+    y='count',
+    color='type',
+    title='Cantidad de películas y series por año',
+    template='plotly_dark'
+)
+
+st.plotly_chart(fig)
 
 
