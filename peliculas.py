@@ -29,3 +29,27 @@ conteo_peliculas = peliculas['type'].value_counts().reset_index()
 fig = px.pie(conteo_peliculas, names='type', values='count', title= 'Cantidad de peliculas vs series', color='type', template= 'plotly_dark')
 
 st.plotly_chart(fig)
+
+conteo_pais = peliculas['pais'].value_counts().reset_index()
+conteo_pais
+st.write("Aca veremos un grafico de barras:")
+
+fig = px.bar(conteo_pais.head(10), x='pais', y='count', title='Top 10 paises con mas contenido', color='pais', template='plotly_dark' )
+st.plotly_chart(fig)
+
+st.write(1234)
+st.write(
+    pd.DataFrame(
+        {
+            "peliculas": ["shrek", "jeperss crepers", "como entrenar a tu dragon"],
+            "genero": ["infantil", "terror", "animacion"],
+        }
+    )
+)
+
+st.write(peliculas)
+
+
+
+
+
